@@ -82,7 +82,7 @@ vilbert-multi-task is licensed under MIT license available in [LICENSE](LICENSE)
 
 
 ## vqa-maskrcnn-benchmark has already included the maskrcnn_benchmark repo, so we don’t need to download a new maskrcnn-benchmark. If we download a new maskrcnn-benchmark from master branch git clone https://github.com/facebookresearch/maskrcnn-benchmark.git. It will raise error when we run script/extract_features.py
-
+```
 conda create --name maskrcnn_benchmark -y
 
 conda activate maskrcnn_benchmark
@@ -154,3 +154,4 @@ unset INSTALL_DIR
 python script/extract_features.py --model_file /dccstor/yupeng_storage/conceptual-captions/detectron_model.pth --config_file /dccstor/yupeng_storage/conceptual-captions/detectron_config.yaml --image_dir /dccstor/yupeng_storage/conceptual-captions/validation --output_folder /dccstor/yupeng_storage/conceptual-captions/extract_feature_validation/
 
 jbsub -cores 8+1 -mem 64G -queue x86_6h -interactive -require “v100” bash
+```
