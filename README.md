@@ -81,8 +81,7 @@ vilbert-multi-task is licensed under MIT license available in [LICENSE](LICENSE)
 
 
 
-****vqa-maskrcnn-benchmark has already included the maskrcnn_benchmark repo, so we don’t need to download a new maskrcnn-benchmark
-If we download a new maskrcnn-benchmark from master branch git clone https://github.com/facebookresearch/maskrcnn-benchmark.git. It will raise error when we run script/extract_features.py
+## vqa-maskrcnn-benchmark has already included the maskrcnn_benchmark repo, so we don’t need to download a new maskrcnn-benchmark. If we download a new maskrcnn-benchmark from master branch git clone https://github.com/facebookresearch/maskrcnn-benchmark.git. It will raise error when we run script/extract_features.py
 
 conda create --name maskrcnn_benchmark -y
 conda activate maskrcnn_benchmark
@@ -116,7 +115,7 @@ python setup.py install --cuda_ext --cpp_ext
 
 # install PyTorch Detection
 cd $INSTALL_DIR
-git clone https://github.com/facebookresearch/maskrcnn-benchmark.git
+git clone https://github.com/facebookresearch/maskrcnn-benchmark.git #we don't need to do this if we are installing vqa-maskrcnn-benchmark
 cd maskrcnn-benchmark
 
 # the following will install the lib with
@@ -128,19 +127,6 @@ python setup.py build develop
 
 unset INSTALL_DIR
 
-
-
-
-
-export CUDA_HOME=/opt/share/cuda-10.1/x86_64/
-export CUDA_BIN_PATH=$CUDA_HOME/bin
-export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$CUDA_HOME/lib
-export PATH=$CUDA_HOME/bin:$PATH
-export LD_LIBRARY_PATH=/opt/share/cuda-10.1/x86_64/lib64:/opt/share/cuda-10.1/x86_64/extras/CUPTI/lib64:$LD_LIBRARY_PATH
-
-export LD_LIBRARY_PATH=/opt/share/cuDNN-v7.6-10.1/cuda/lib64:$LD_LIBRARY_PATH
-export CPATH=/opt/share/cuDNN-v7.6-10.1/cuda/include:$CPATH
-export LIBRARY_PATH=/opt/share/cuDNN-v7.6-10.1/cuda/lib64:$LD_LIBRARY_PATH
 
 
 
