@@ -84,44 +84,64 @@ vilbert-multi-task is licensed under MIT license available in [LICENSE](LICENSE)
 ## vqa-maskrcnn-benchmark has already included the maskrcnn_benchmark repo, so we don’t need to download a new maskrcnn-benchmark. If we download a new maskrcnn-benchmark from master branch git clone https://github.com/facebookresearch/maskrcnn-benchmark.git. It will raise error when we run script/extract_features.py
 
 conda create --name maskrcnn_benchmark -y
+
 conda activate maskrcnn_benchmark
 
 Conda install python==3.7
+
 conda install ipython pip
+
 pip install ninja yacs cython matplotlib tqdm opencv-python
 
 #install pytorch1.4 torchvivion==0.5.0 cudatoolkit==10.1
+
 conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
 
 export INSTALL_DIR=$PWD
 
-# install pycocotools
+#install pycocotools
+
 cd $INSTALL_DIR
+
 git clone https://github.com/cocodataset/cocoapi.git
+
 cd cocoapi/PythonAPI
+
 python setup.py build_ext install
 
-# install cityscapesScripts
+#install cityscapesScripts
+
 cd $INSTALL_DIR
+
 git clone https://github.com/mcordts/cityscapesScripts.git
+
 cd cityscapesScripts/
+
 python setup.py build_ext install
 
-# install apex
+#install apex
+
 cd $INSTALL_DIR
+
 git clone https://github.com/NVIDIA/apex.git
+
 cd apex
+
 python setup.py install --cuda_ext --cpp_ext
 
-# install PyTorch Detection
+#install PyTorch Detection
+
 cd $INSTALL_DIR
+
 git clone https://github.com/facebookresearch/maskrcnn-benchmark.git #we don't need to do this if we are installing vqa-maskrcnn-benchmark
+
 cd maskrcnn-benchmark
 
-# the following will install the lib with
-# symbolic links, so that you can modify
-# the files if you want and won't need to
-# re-build it
+#the following will install the lib with
+#symbolic links, so that you can modify
+#the files if you want and won't need to
+#re-build it
+
 python setup.py build develop
 
 
