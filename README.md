@@ -78,3 +78,73 @@ python train_tasks.py --bert_model bert-base-uncased --from_pretrained <multi_ta
 ## License
 
 vilbert-multi-task is licensed under MIT license available in [LICENSE](LICENSE) file.
+
+
+
+****vqa-maskrcnn-benchmark has already included the maskrcnn_benchmark repo, so we don’t need to download a new maskrcnn-benchmark
+If we download a new maskrcnn-benchmark from master branch git clone https://github.com/facebookresearch/maskrcnn-benchmark.git. It will raise error when we run script/extract_features.py
+
+conda create --name maskrcnn_benchmark -y
+conda activate maskrcnn_benchmark
+
+Conda install python==3.7
+conda install ipython pip
+pip install ninja yacs cython matplotlib tqdm opencv-python
+
+#install pytorch1.4 torchvivion==0.5.0 cudatoolkit==10.1
+conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
+
+export INSTALL_DIR=$PWD
+
+# install pycocotools
+cd $INSTALL_DIR
+git clone https://github.com/cocodataset/cocoapi.git
+cd cocoapi/PythonAPI
+python setup.py build_ext install
+
+# install cityscapesScripts
+cd $INSTALL_DIR
+git clone https://github.com/mcordts/cityscapesScripts.git
+cd cityscapesScripts/
+python setup.py build_ext install
+
+# install apex
+cd $INSTALL_DIR
+git clone https://github.com/NVIDIA/apex.git
+cd apex
+python setup.py install --cuda_ext --cpp_ext
+
+# install PyTorch Detection
+cd $INSTALL_DIR
+git clone https://github.com/facebookresearch/maskrcnn-benchmark.git
+cd maskrcnn-benchmark
+
+# the following will install the lib with
+# symbolic links, so that you can modify
+# the files if you want and won't need to
+# re-build it
+python setup.py build develop
+
+
+unset INSTALL_DIR
+
+
+
+
+
+export CUDA_HOME=/opt/share/cuda-10.1/x86_64/
+export CUDA_BIN_PATH=$CUDA_HOME/bin
+export DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH:$CUDA_HOME/lib
+export PATH=$CUDA_HOME/bin:$PATH
+export LD_LIBRARY_PATH=/opt/share/cuda-10.1/x86_64/lib64:/opt/share/cuda-10.1/x86_64/extras/CUPTI/lib64:$LD_LIBRARY_PATH
+
+export LD_LIBRARY_PATH=/opt/share/cuDNN-v7.6-10.1/cuda/lib64:$LD_LIBRARY_PATH
+export CPATH=/opt/share/cuDNN-v7.6-10.1/cuda/include:$CPATH
+export LIBRARY_PATH=/opt/share/cuDNN-v7.6-10.1/cuda/lib64:$LD_LIBRARY_PATH
+
+
+
+
+python script/extract_features.py --model_file /dccstor/yupeng_storage/conceptual-captions/detectron_model.pth --config_file /dccstor/yupeng_storage/conceptual-captions/detectron_config.yaml --image_dir /dccstor/yupeng_storage/conceptual-captions/validation --output_folder /dccstor/yupeng_storage/conceptual-captions/extract_feature_validation/
+
+jbsub -cores 8+1 -mem 64G -queue x86_6h -interactive -require “v100” bash
