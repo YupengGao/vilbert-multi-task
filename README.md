@@ -95,7 +95,9 @@ pip install ninja yacs cython matplotlib tqdm opencv-python
 
 #install pytorch1.4 torchvivion==0.5.0 cudatoolkit==10.1
 
-conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
+#conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
+#I finailly use this pytorch version because ccc GPU cuda version
+conda install pytorch==1.1.0 torchvision==0.3.0 cudatoolkit=9.0 -c pytorch
 
 export INSTALL_DIR=$PWD
 
@@ -119,7 +121,7 @@ cd cityscapesScripts/
 
 python setup.py build_ext install
 
-#install apex
+#install apex is pytorch was complie by cuda9.0, your os also need cuda-9.0 to complie apex
 
 cd $INSTALL_DIR
 
@@ -135,7 +137,7 @@ cd $INSTALL_DIR
 
 git clone https://github.com/facebookresearch/maskrcnn-benchmark.git #we don't need to do this if we are installing vqa-maskrcnn-benchmark
 
-cd maskrcnn-benchmark
+cd maskrcnn-benchmark #we don't need to do this if we are installing vqa-maskrcnn-benchmark
 
 #the following will install the lib with
 #symbolic links, so that you can modify
@@ -144,7 +146,7 @@ cd maskrcnn-benchmark
 
 python setup.py build develop
 
-
+pip install pytorch-transformers==1.2.0 #1.0.0doesn't work
 unset INSTALL_DIR
 
 
